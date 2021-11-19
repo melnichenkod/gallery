@@ -7,8 +7,10 @@ class Gallery{
     this.containerNode = element;
     this.size = element.childElementCount;
     this.currentSlide = 0;
-    this.manageHTML = this.manageHTML.bind(this)
+    this.manageHTML = this.manageHTML.bind(this);
+    this.setParameters = this.setParameters.bind(this);
     this.manageHTML();
+    this.setParameters()
   }
   manageHTML() {
     this.containerNode.classList.add(galleryClassName);
@@ -25,6 +27,16 @@ class Gallery{
       })
     )
       console.log(this.slideNodes);
+  }
+  setParameters(){
+    const coordContainer = this.containerNode.getBoundingClientRect();
+    console.log(coordContainer);
+    this.width = coordContainer.width;
+    this.lineNode.style.width = `${this.size * this.width}px`;
+    Array.from(this.slideNodes).forEach((slideNode) => {
+      slideNode.style.width = `${this.width}px`
+    })
+
   }
 }
 
