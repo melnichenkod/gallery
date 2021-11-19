@@ -9,8 +9,13 @@ class Gallery{
     this.currentSlide = 0;
     this.manageHTML = this.manageHTML.bind(this);
     this.setParameters = this.setParameters.bind(this);
+    this.setEvents = this.setEvents.bind(this);
+    this.resizeGallery = this.resizeGallery.bind(this);
+
+
     this.manageHTML();
-    this.setParameters()
+    this.setParameters();
+    this.setEvents()
   }
   manageHTML() {
     this.containerNode.classList.add(galleryClassName);
@@ -30,13 +35,19 @@ class Gallery{
   }
   setParameters(){
     const coordContainer = this.containerNode.getBoundingClientRect();
-    console.log(coordContainer);
+    // console.log(coordContainer);
     this.width = coordContainer.width;
     this.lineNode.style.width = `${this.size * this.width}px`;
     Array.from(this.slideNodes).forEach((slideNode) => {
       slideNode.style.width = `${this.width}px`
     })
-
+  }
+  setEvents(){
+    window.addEventListener('resize', debounce(this.resizeGallery))
+  }
+  resizeGallery(){
+    console.log(11);
+    this.setParameters();
   }
 }
 
@@ -45,7 +56,14 @@ function wrapElementByDiv({element, className}) {
   const wrapperNode = document.createElement('div');
   wrapperNode.classList.add(className);
   element.parentNode.insertBefore(wrapperNode, element);
-  console.log(element.parentNode);
   wrapperNode.appendChild(element);
   return wrapperNode;
+}
+
+function debounce(func, time = 100){
+  let timer;
+  return function(event){
+    clearTimeout(timer);
+    timer = setTimeout(func, time, event)
+  }
 }

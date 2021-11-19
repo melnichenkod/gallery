@@ -1,22 +1,11 @@
-body {
-  margin: 0;
-  padding: 1rem;
+.gallery {
+  width: 100%;
+  overflow: hidden;
 }
-.slide {
-  height: 20rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.gallery-line {
+  overflow: hidden;
 }
-.slide-1 {
-  background: chocolate;
-}
-.slide-2 {
-  background:darkcyan;
-}
-.slide-3 {
-  background: darkred;
-}
-.slide-4 {
-  background:deeppink;
+.gallery-slide{
+  min-height: 1px;
+  float: left;
 }
