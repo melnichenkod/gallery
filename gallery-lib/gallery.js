@@ -7,6 +7,8 @@ class Gallery{
     this.containerNode = element;
     this.size = element.childElementCount;
     this.currentSlide = 0;
+    this.currentSlideWasChanged = false;
+
     this.manageHTML = this.manageHTML.bind(this);
     this.setParameters = this.setParameters.bind(this);
     this.setEvents = this.setEvents.bind(this);
@@ -41,6 +43,7 @@ class Gallery{
     const coordContainer = this.containerNode.getBoundingClientRect();
     // console.log(coordContainer);
     this.width = coordContainer.width;
+    this.x = -this.currentSlide * this.width;
     this.lineNode.style.width = `${this.size * this.width}px`;
     Array.from(this.slideNodes).forEach((slideNode) => {
       slideNode.style.width = `${this.width}px`
@@ -60,19 +63,42 @@ destroyEvents(){
     this.setParameters();
   }
   startDrag(evt) {
+    this.currentSlideWasChanged = false;
     this.clickX = evt.pageX;
+    this.startX = this.x;
     window.addEventListener('pointermove', this.dragging);
   }
   stopDrag() {
     window.removeEventListener('pointermove', this.dragging);
+    console.log(this.currentSlide);
   }
   dragging(evt) {
     this.dragX = evt.pageX;
     const dragShift = this.dragX - this.clickX;
-    this.setStylePosition(dragShift);
+    this.x = this.startX + dragShift;
+    this.setStylePosition();
+    // Change active slide
+    if (
+      dragShift > 20 &&
+      dragShift > 0 &&
+      !this.currentSlideWasChanged &&
+      this.currentSlide > 0
+      ) {
+        this.currentSlideWasChanged = true;
+        this.currentSlide = this.currentSlide - 1;
+      }
+      if (
+        dragShift < -20 &&
+        dragShift < 0 &&
+        !this.currentSlideWasChanged &&
+        this.currentSlide < this.size - 1
+      ) {
+        this.currentSlideWasChanged = true;
+        this.currentSlide = this.currentSlide + 1;
+      }
   }
-  setStylePosition(shift) {
-    this.lineNode.style.transform = `translate3d(${shift}px, 0, 0)`
+  setStylePosition() {
+    this.lineNode.style.transform = `translate3d(${this.x}px, 0, 0)`
   }
 }
 
