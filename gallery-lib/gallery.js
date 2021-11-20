@@ -66,10 +66,14 @@ destroyEvents(){
     this.currentSlideWasChanged = false;
     this.clickX = evt.pageX;
     this.startX = this.x;
+    this.resetStyleTransition();
     window.addEventListener('pointermove', this.dragging);
   }
   stopDrag() {
     window.removeEventListener('pointermove', this.dragging);
+    this.x = -this.currentSlide * this.width;
+    this.setStylePosition();
+    this.setStyleTransition()
     console.log(this.currentSlide);
   }
   dragging(evt) {
@@ -99,6 +103,12 @@ destroyEvents(){
   }
   setStylePosition() {
     this.lineNode.style.transform = `translate3d(${this.x}px, 0, 0)`
+  }
+  setStyleTransition() {
+    this.lineNode.style.transition = `all 0.25s ease 0s`;
+  }
+  resetStyleTransition() {
+    this.lineNode.style.transition = `all 0.s ease 0s`;
   }
 }
 
