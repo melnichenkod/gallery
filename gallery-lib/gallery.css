@@ -1,11 +1,17 @@
 .gallery {
   width: 100%;
   overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
 }
-.gallery-line {
+.gallery-draggable {
+  cursor: grabbing;
+}
+.gallery-line{
   overflow: hidden;
 }
 .gallery-slide{
   min-height: 1px;
   float: left;
+  transform: translateZ(0);
 }
