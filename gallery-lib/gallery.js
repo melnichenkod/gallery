@@ -159,8 +159,24 @@ class Gallery{
     }
   }
 
-  clickDots() {
+  clickDots(evt) {
+    const dotNode = evt.target.closest('button');
+    if (!dotNode) {
+      return;
+    }
+    let dotNumber;
+    for(let i = 0; i < this.dotNodes.length; i++) {
+      if (this.dotNodes[i] === dotNode) {
+        dotNumber = i;
+        break;
+      }
+    }
 
+    if (dotNumber === this.currentSlide) {
+      return;
+    }
+    this.currentSlide = dotNumber;
+    this.changeCurrentSlide();
   }
 
   moveToLeft() {
