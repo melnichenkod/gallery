@@ -176,8 +176,10 @@ class Gallery{
     if (dotNumber === this.currentSlide) {
       return;
     }
+
+    const countSwipes = Math.abs(this.currentSlide - dotNumber);
     this.currentSlide = dotNumber;
-    this.changeCurrentSlide();
+    this.changeCurrentSlide(countSwipes);
   }
 
   moveToLeft() {
@@ -198,10 +200,10 @@ class Gallery{
     }
   }
 
-  changeCurrentSlide() {
+  changeCurrentSlide(countSwipes) {
     this.x = -this.currentSlide * (this.width + this.settings.margin);
     this.setStylePosition();
-    this.setstyleTransition();
+    this.setstyleTransition(countSwipes);
     this.changeActiveDotClass();
   }
 
@@ -216,8 +218,8 @@ class Gallery{
     this.lineNode.style.transform = `translate3d(${this.x}px, 0, 0)`;
   }
 
-  setstyleTransition(){
-    this.lineNode.style.transition = `all 0.25s ease 0s`;
+  setstyleTransition(countSwipes = 1){
+    this.lineNode.style.transition = `all ${countSwipes * 0.25}s ease 0s`;
   }
 
   resetStyleTransition() {
