@@ -31,6 +31,7 @@ class Gallery{
     this.moveToLeft = this.moveToLeft.bind(this);
     this.moveToRight = this.moveToRight.bind(this);
     this.changeCurrentSlide = this.changeCurrentSlide.bind(this);
+    this.changeActiveDotClass = this.changeActiveDotClass.bind(this);
 
     this.manageHTML(); //необхідні оберткі для галереї
     this.setParameters();
@@ -201,6 +202,14 @@ class Gallery{
     this.x = -this.currentSlide * (this.width + this.settings.margin);
     this.setStylePosition();
     this.setstyleTransition();
+    this.changeActiveDotClass();
+  }
+
+  changeActiveDotClass(){
+    for(let i = 0; i < this.dotNodes.length; i++){
+      this.dotNodes[i].classList.remove(GalleryDotActiveClassName)
+    }
+    this.dotNodes[this.currentSlide].classList.add(GalleryDotActiveClassName);
   }
 
   setStylePosition() {
