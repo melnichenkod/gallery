@@ -1,5 +1,6 @@
 const GalleryClassName = 'gallery';
 const GalleryDraggableClassName = 'gallery-draggable';
+const GalleryLineContainerClassName = 'gallery-line-container'
 const GalleryLineClassName = 'gallery-line';
 const GallerySlideClassName = 'gallery-slide';
 const GalleryDotsClassName = 'gallery-dots';
@@ -41,8 +42,10 @@ class Gallery{
   manageHTML(){
     this.containerNode.classList.add(GalleryClassName);
     this.containerNode.innerHTML = `
-      <div class="${GalleryLineClassName}">
-        ${this.containerNode.innerHTML}
+      <div class="${GalleryLineContainerClassName}">
+        <div class="${GalleryLineClassName}">
+          ${this.containerNode.innerHTML}
+        </div>
       </div>
       <div class="${GalleryNavClassName}">
         <button class="${GalleryNavLeftClassName}">Left</button>
@@ -50,6 +53,8 @@ class Gallery{
       </div>
       <div class="${GalleryDotsClassName}"></div>
     `;
+
+    this.lineContainerNode = this.containerNode.querySelector(`.${GalleryLineContainerClassName}`);
     this.lineNode = this.containerNode.querySelector(`.${GalleryLineClassName}`);
     this.dotsNode = this.containerNode.querySelector(`.${GalleryDotsClassName}`);
 
@@ -70,8 +75,8 @@ class Gallery{
   }
 
   setParameters(){
-    const coordsContainer = this.containerNode.getBoundingClientRect();
-    this.width = coordsContainer.width;
+    const coordsLineContainer = this.lineContainerNode.getBoundingClientRect();
+    this.width = coordsLineContainer.width;
     this.maximumX = -(this.size - 1) * (this.width + this.settings.margin);
     this.x = -this.currentSlide * (this.width + this.settings.margin);
 
