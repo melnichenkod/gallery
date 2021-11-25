@@ -9,6 +9,7 @@ const GalleryDotActiveClassName = 'gallery-dot-active';
 const GalleryNavClassName = 'gallery-nav';
 const GalleryNavLeftClassName = 'gallery-nav-left';
 const GalleryNavRightClassName = 'gallery-nav-right';
+const GalleryNavDisabledClassName = 'gallery-nav-disabled'
 
 class Gallery{
   constructor(element, options = {}){
@@ -33,6 +34,7 @@ class Gallery{
     this.moveToRight = this.moveToRight.bind(this);
     this.changeCurrentSlide = this.changeCurrentSlide.bind(this);
     this.changeActiveDotClass = this.changeActiveDotClass.bind(this);
+    this.changeDisabledNav = this.changeDisabledNav.bind(this);
 
     this.manageHTML(); //необхідні оберткі для галереї
     this.setParameters();
@@ -83,6 +85,9 @@ class Gallery{
     this.resetStyleTransition();
     this.lineNode.style.width = `${(this.width + this.settings.margin) * this.size}px`;
     this.setStylePosition();
+    this.changeActiveDotClass();
+    this.changeDisabledNav();
+
     Array.from(this.slideNodes).forEach((slideNode) => {
       slideNode.style.width = `${this.width}px`;
       slideNode.style.marginRight = `${this.settings.margin}px`
@@ -210,6 +215,7 @@ class Gallery{
     this.setStylePosition();
     this.setstyleTransition(countSwipes);
     this.changeActiveDotClass();
+    this.changeDisabledNav()
   }
 
   changeActiveDotClass(){
@@ -217,6 +223,20 @@ class Gallery{
       this.dotNodes[i].classList.remove(GalleryDotActiveClassName)
     }
     this.dotNodes[this.currentSlide].classList.add(GalleryDotActiveClassName);
+  }
+
+  changeDisabledNav() {
+    if (this.currentSlide <= 0) {
+      this.navLeft.classList.add(GalleryNavDisabledClassName)
+    } else {
+      this.navLeft.classList.remove(GalleryNavDisabledClassName)
+    }
+    if (this.currentSlide >= this.size - 1) {
+      this.navRight.classList.add(GalleryNavDisabledClassName)
+    } else {
+      this.navRight.classList.remove(GalleryNavDisabledClassName)
+    }
+    
   }
 
   setStylePosition() {
