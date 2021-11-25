@@ -16,6 +16,7 @@
   min-height: 1px;
   float: left;
   transform: translateZ(0);
+  overflow: hidden;
 }
 
 .gallery-dots {

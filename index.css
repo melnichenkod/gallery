@@ -1,22 +1,9 @@
 body {
-  margin: 0;
-  padding: 1rem;
+  padding: 1 rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
-.slide {
-  height: 20rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.slide-1 {
-  background: chocolate;
-}
-.slide-2 {
-  background:darkcyan;
-}
-.slide-3 {
-  background: darkred;
-}
-.slide-4 {
-  background:deeppink;
+.slide img {
+  width: 100%;
+  pointer-events: none;
 }
