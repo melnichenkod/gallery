@@ -1,8 +1,13 @@
 .gallery {
-  width: 100%;
+  position: relative;
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
+  padding: 0 3rem;
+}
+.gallery-line-container {
+  overflow: hidden;
+
 }
 .gallery-draggable {
   cursor: grabbing;
@@ -48,7 +53,27 @@
   padding: 1rem 0 0;
 }
 
-.gallery-nav button {
-  margin: 0.5rem;
+.gallery-nav-left,
+.gallery-nav-right {
+  position: absolute;
+  top: 50%;
+  margin-top: -3rem;
+  text-indent: -1234em;
+  width: 2rem;
+  height: 3rem;
+  border: none;
+  outline: none;
   cursor: pointer;
+}
+
+.gallery-nav-left {
+  left: 0;
+  background: url('./images/left.svg') no-repeat center;
+  background-size: contain;
+}
+
+.gallery-nav-right {
+  right: 0;
+  background: url('./images/right.svg') no-repeat center;
+  background-size: contain;
 }
